@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: srv-redis-master
+  namespace: ns-gitci
+  labels:
+    app: gitci
+    environment: dev
+    role: master
+    tier: db
+spec:
+  ports:
+    - port: 6379
+      targetPort: 6379
+  selector:
+    app: gitci
+    environment: dev
+    role: master
+    tier: db

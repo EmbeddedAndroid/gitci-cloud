@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: deploy-mariadb
+  namespace: ns-gitci
+spec:
+  template:
+    metadata:
+      labels:
+        app: hawkbit
+        environment: dev
+        tier: db
+    spec:
+      containers:
+        - name: con-mariadb
+          image: mariadb
+          tty: true
+          ports:
+            - containerPort: 3306

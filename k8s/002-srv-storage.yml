@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: srv-storage
+  namespace: ns-gitci
+  labels:
+    app: simple-storage
+    environment: dev
+    role: webapp
+    tier: frontend
+spec:
+  ports:
+    - port: 5000
+      targetPort: 5000
+  selector:
+    app: simple-storage
+    environment: dev
+    role: webapp
+    tier: frontend

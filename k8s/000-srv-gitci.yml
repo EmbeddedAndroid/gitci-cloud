@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: srv-gitci
+  namespace: ns-gitci
+  labels:
+    app: gitci
+    access: external
+    environment: dev
+spec:
+  type: LoadBalancer
+  loadBalancerIP: X.X.X.X
+  ports:
+    - name: ssh
+      port: 22
+      targetPort: 22
+    - name: http
+      port: 80
+      targetPort: 80
+    - name: https
+      port: 443
+      targetPort: 443
+  selector:
+    environment: dev
+    access: external

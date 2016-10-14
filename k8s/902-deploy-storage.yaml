@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: deploy-storage
+  namespace: ns-gitci
+spec:
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: simple-storage
+        environment: dev
+        role: webapp
+        tier: frontend
+    spec:
+      terminationGracePeriodSeconds: 15
+      volumes:
+        - name: vol-gitci-storage-artifacts
+          gcePersistentDisk:
+            pdName: vol-gitci-storage-artifacts
+            fsType: ext4
+        - name: vol-gitci-storage-static
+          gcePersistentDisk:
+            pdName: vol-gitci-storage-static
+            fsType: ext4
+      containers:
+        - name: con-simple-storage
+          image: milocasagrande/simple-storage
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - name: vol-gitci-storage-artifacts
+              mountPath: "/mnt/artifacts"
+              readOnly: true
+            - name: vol-gitci-storage-static
+              mountPath: "/mnt/artifacts-static"

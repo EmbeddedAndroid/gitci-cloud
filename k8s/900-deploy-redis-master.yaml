@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: deploy-redis-master
+  namespace: ns-gitci
+spec:
+  template:
+    metadata:
+      labels:
+        app: gitci
+        environment: dev
+        role: master
+        tier: db
+    spec:
+      volumes:
+        - name: vol-gitci-redis-data
+          gcePersistentDisk:
+            pdName: vol-gitci-redis-data
+            fsType: ext4
+      containers:
+        - name: con-redis-master
+          image: redis
+          args: ["--appendonly", "yes"]
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - name: vol-gitci-redis-data
+              mountPath: "/data"

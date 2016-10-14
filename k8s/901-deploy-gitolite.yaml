@@ -1,0 +1,33 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: deploy-gitolite
+  namespace: ns-gitci
+spec:
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        access: external
+        app: gitci
+        environment: dev
+        role: ssh
+        tier: backend
+    spec:
+      terminationGracePeriodSeconds: 15
+      volumes:
+        - name: vol-gitci-repo-storage
+          gcePersistentDisk:
+            pdName: vol-gitci-repo-storage
+            fsType: ext4
+      containers:
+        - name: con-gitolite
+          image: milocasagrande/dockerize-gitolite:latest
+          ports:
+            - containerPort: 22
+          volumeMounts:
+            - name: vol-gitci-repo-storage
+              mountPath: "/home/git/gitolite-dir"
+          env:
+            - name: SSH_KEY
+              value: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC5ZIR6yIXn5D6eGiH+vBQbXF70rDICKUpkIpCeYef8jR0TIjg+prQ8W9aJyU6cMkwjJFee/qvfWAjzP0rFsqSK2OdAw9wHWXfL6/X+S3C4pJuU4jfOJmePku/wrRJGTOP5M7QixOGsvYDZpp1yfLheLzaDNaaGpH66QsUrvklkHuoczwwqKtjAkDJC1R7YwxoerrMov9rGosb99AffMau2xYDsLI4avuTwK38qYvG9sZ6AdhCs3N749ksO0bWbJzEt/z/aMZG+a9UrsOYYYAIrvbkgAfseIw9jTTFJ7TQYQQa4NbIMxQ52HEUMrUKfqXgUSSoCKFDnbGjwwNY7RHmejRf/kB6Q9fxcIUzVHKJsIlyfIwe7rVKagQyUmKkeAISLrLW4UHtrPZ0aKjVHYRJPFrNkUpTRypT9nTebmcncNRHZIumbfRrfWyBukoMN7a/Jx7BIryqNqXAHjoupxH+5R48TtDQAIoa7ewH6Vty7XyjVZLRP1r52JpzfzftxZy8lYi7CxLrzScJ3Bzq5yU430EQ88Tm+/bP3HiFh9l0g0Ln5d1KAt2myjrCEPFMv8Y4JaxrFXEPRXQU9SzG43ut9Bp8REDbcPjB1GhDmDFyRNIj259cFvI0EiVFClIc3szMlmNqFvxLZnU7j0ax/XMzcffrJvs50J3RoYDLuKKzdww== Milo @ Linaro
