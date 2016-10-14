@@ -9,7 +9,7 @@ metadata:
     environment: dev
 spec:
   type: LoadBalancer
-  loadBalancerIP: X.X.X.X
+  # loadBalancerIP: X.X.X.X
   ports:
     - name: ssh
       port: 22
