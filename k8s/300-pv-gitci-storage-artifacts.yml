@@ -1,0 +1,31 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-rw-gitci-storage-artifacts
+  namespace: ns-gitci
+  labels:
+    app: gitci
+spec:
+  capacity:
+    storage: 200Gi
+  accessModes:
+    - ReadWriteOnce
+  gcePersistentDisk:
+    pdName: vol-gitci-storage-artifacts
+    fsType: ext4
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-ro-gitci-storage-artifacts
+  namespace: ns-gitci
+  labels:
+    app: gitci
+spec:
+  capacity:
+    storage: 200Gi
+  accessModes:
+    - ReadOnlyMany
+  gcePersistentDisk:
+    pdName: vol-gitci-storage-artifacts
+    fsType: ext4

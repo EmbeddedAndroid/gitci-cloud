@@ -1,0 +1,33 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-rw-gitci-storage-artifacts
+  namespace: ns-gitci
+  labels:
+    app: simple-storage
+    role: webapp
+    tier: frontend
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 200Gi
+  volumeName: pv-rw-gitci-storage-artifacts
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-ro-gitci-storage-artifacts
+  namespace: ns-gitci
+  labels:
+    app: simple-storage
+    role: webapp
+    tier: frontend
+spec:
+  accessModes:
+    - ReadOnlyMany
+  resources:
+    requests:
+      storage: 200Gi
+  volumeName: pv-ro-gitci-storage-artifacts
