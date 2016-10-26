@@ -27,6 +27,7 @@ spec:
       containers:
         - name: con-simple-storage
           image: linaroproduct/gitci-storage-container:dev
+          imagePullPolicy: Always
           ports:
             - containerPort: 5000
           volumeMounts:
