@@ -22,7 +22,7 @@ spec:
             fsType: ext4
       containers:
         - name: con-gitolite
-          image: milocasagrande/dockerize-gitolite:latest
+          image: linaroproduct/gitci-gitolite-container
           ports:
             - containerPort: 22
           volumeMounts:
