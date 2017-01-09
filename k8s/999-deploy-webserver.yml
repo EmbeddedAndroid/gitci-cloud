@@ -5,7 +5,6 @@ metadata:
   namespace: ns-gitci
 spec:
   replicas: 1
-  minReadySeconds: 5
   template:
     metadata:
       labels:
@@ -15,28 +14,13 @@ spec:
         role: webserver
         tier: frontend
     spec:
-      terminationGracePeriodSeconds: 15
-      volumes:
-        - name: 999-ro-gitci-storage-artifacts
-          persistentVolumeClaim:
-            claimName: pvc-ro-gitci-storage-artifacts
-            readOnly: true
-        - name: 999-ro-gitci-storage-static
-          persistentVolumeClaim:
-            claimName: pvc-ro-gitci-storage-static
-            readOnly: true
+      terminationGracePeriodSeconds: 5
       containers:
         - name: nginx
-          image: linaroproduct/gitci-nginx-container:dev
+          image: linaroproduct/gitci-nginx-container:latest
+          imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 80
             - name: https
               containerPort: 443
-          volumeMounts:
-            - name: 999-ro-gitci-storage-artifacts
-              mountPath: "/mnt/artifacts"
-              readOnly: true
-            - name: 999-ro-gitci-storage-static
-              mountPath: "/mnt/artifacts-static"
-              readOnly: true
