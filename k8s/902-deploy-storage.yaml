@@ -9,31 +9,25 @@ spec:
   template:
     metadata:
       labels:
-        app: simple-storage
+        app: gitci-storage
         environment: dev
         role: webapp
         tier: frontend
     spec:
-      terminationGracePeriodSeconds: 15
+      terminationGracePeriodSeconds: 5
+      restartPolicy: Always
       volumes:
-        - name: 902-ro-gitci-storage-artifacts
+        - name: 902-gitci-storage-artifacts
           persistentVolumeClaim:
-            claimName: pvc-ro-gitci-storage-artifacts
-            readOnly: true
-        - name: 902-rw-gitci-storage-static
-          persistentVolumeClaim:
-            claimName: pvc-rw-gitci-storage-static
+            claimName: pvc-gitci-storage-artifacts
             readOnly: false
       containers:
-        - name: con-simple-storage
-          image: linaroproduct/gitci-storage-container:dev
+        - name: con-gitci-storage
+          image: linaroproduct/gitci-storage-container:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 5000
           volumeMounts:
-            - name: 902-ro-gitci-storage-artifacts
+            - name: 902-gitci-storage-artifacts
               mountPath: "/mnt/artifacts"
-              readOnly: true
-            - name: 902-rw-gitci-storage-static
-              mountPath: "/mnt/artifacts-static"
               readOnly: false
