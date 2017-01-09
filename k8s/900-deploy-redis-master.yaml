@@ -11,12 +11,13 @@ spec:
         environment: dev
         role: master
         tier: db
+        service: redis
     spec:
       volumes:
-        - name: vol-gitci-redis-data
-          gcePersistentDisk:
-            pdName: vol-gitci-redis-data
-            fsType: ext4
+        - name: 900-vol-gitci-redis-data
+          persistentVolumeClaim:
+            claimName: pvc-gitci-redis-data
+            readOnly: false
       containers:
         - name: con-redis-master
           image: redis
@@ -24,5 +25,6 @@ spec:
           ports:
             - containerPort: 6379
           volumeMounts:
-            - name: vol-gitci-redis-data
+            - name: 900-vol-gitci-redis-data
               mountPath: "/data"
+              readOnly: false
