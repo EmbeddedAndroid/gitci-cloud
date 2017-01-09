@@ -8,6 +8,7 @@ metadata:
     environment: dev
     role: master
     tier: db
+    service: redis
 spec:
   ports:
     - port: 6379
