@@ -1,0 +1,19 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-gitci-redis-data
+  namespace: ns-gitci
+  labels:
+    app: gitci
+    environment: dev
+    tier: db
+    service: redis
+spec:
+  capacity:
+    storage: 200Gi
+  accessModes:
+    - ReadWriteOnce
+    - ReadOnlyMany
+  gcePersistentDisk:
+    pdName: vol-gitci-redis-data
+    fsType: ext4

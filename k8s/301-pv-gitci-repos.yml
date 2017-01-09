@@ -1,0 +1,16 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-gitci-repos
+  namespace: ns-gitci
+  labels:
+    app: gitci-gitolite
+spec:
+  capacity:
+    storage: 500Gi
+  accessModes:
+    - ReadWriteOnce
+    - ReadOnlyMany
+  gcePersistentDisk:
+    pdName: vol-gitci-repos
+    fsType: ext4

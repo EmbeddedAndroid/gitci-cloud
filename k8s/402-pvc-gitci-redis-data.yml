@@ -1,0 +1,17 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-gitci-redis-data
+  namespace: ns-gitci
+  labels:
+    app: gitci
+    environment: dev
+    tier: db
+    service: redis
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 200Gi
+  volumeName: pv-gitci-redis-data
