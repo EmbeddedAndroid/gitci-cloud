@@ -20,6 +20,6 @@ if [ -z "$GCLOUD" ]; then
     exit 1
 fi
 
-"$GCLOUD" compute disks create vol-gitci-storage-artifacts --size=200GB
-"$GCLOUD" compute disks create vol-gitci-storage-static --size=200GB
+"$GCLOUD" compute disks create vol-gitci-storage-artifacts --size=500GB
 "$GCLOUD" compute disks create vol-gitci-redis-data --size=200GB
+"$GCLOUD" compute disks create vol-gitci-repos --size=500GB
