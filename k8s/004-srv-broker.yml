@@ -1,0 +1,25 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: srv-broker
+  namespace: ns-gitci
+  labels:
+    access: internal
+    app: gitci-broker
+    environment: dev
+    tier: backend
+    role: broker
+spec:
+  ports:
+    - name: receiver
+      port: 5555
+      targetPort: 5555
+      protocol: "TCP"
+    - name: publisher
+      port: 5556
+      targetPort: 5556
+      protocol: "TCP"
+  selector:
+    app: gitci-broker
+    environment: dev
+    role: broker

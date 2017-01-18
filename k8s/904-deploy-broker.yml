@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: deploy-broker
+  namespace: ns-gitci
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        access: internal
+        app: gitci-broker
+        environment: dev
+        tier: backend
+        role: broker
+    spec:
+      terminationGracePeriodSeconds: 30
+      restartPolicy: Always
+      serviceAccountName: broker-account
+      containers:
+        - name: gitci-broker
+          image: linaroproduct/gitci-broker-container
+          ports:
+            - containerPort: 5555
+              hostIP: "*"
+              protocol: "TCP"
+            - containerPort: 5556
+              hostIP: "*"
+              protocol: "TCP"
