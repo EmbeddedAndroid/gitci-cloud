@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: deploy-signup
+  namespace: ns-gitci
+spec:
+  replicas: 1
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: gitci-signup
+        environment: dev
+        role: webapp
+        tier: frontend
+    spec:
+      terminationGracePeriodSeconds: 5
+      restartPolicy: Always
+      containers:
+        - name: con-gitci-signup
+          image: linaroproduct/gitci-signup-container:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000

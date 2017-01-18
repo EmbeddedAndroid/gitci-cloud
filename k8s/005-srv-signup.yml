@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: srv-signup
+  namespace: ns-gitci
+  labels:
+    app: gitci-signup
+    environment: dev
+    role: webapp
+    tier: frontend
+spec:
+  ports:
+    - port: 5000
+      targetPort: 5000
+  selector:
+    app: gitci-signup
+    environment: dev
+    role: webapp
+    tier: frontend
