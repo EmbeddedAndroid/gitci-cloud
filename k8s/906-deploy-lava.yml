@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: deploy-lava
+  namespace: ns-gitci
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: lava
+        environment: dev
+        role: lava
+        tier: backend
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: con-gitci-lava
+          image: linaroproduct/gitci-lava-container:latest
+          stdin: true
+          tty: true
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5555
+            - containerPort: 5556
+            - containerPort: 80
